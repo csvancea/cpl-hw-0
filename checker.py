@@ -1,19 +1,22 @@
 #!/usr/bin/python3.7
 import subprocess
 import sys
+import glob
 
 FORCE_RUN_ALL = True   #run all tests, despite failures?
 
+def merge_files(in_files, out_file):
+    with open(out_file, "w") as outfile:
+        for fname in in_files:
+            with open(fname) as infile:
+                for line in infile:
+                    outfile.write(line)
+
 def launch(in_file):
-    bash_cmd = "cat sources/*.cl > .combined.cl"
-    try:
-        proc = subprocess.Popen(bash_cmd, shell=True)
-        proc.wait()
-    except:
-        print("Error executing bash command")
-        sys.exit(-1)
+    in_files = glob.glob("sources/*.cl")
+    merge_files(in_files, ".combined.cl")
     
-    return subprocess.Popen(["./cool", ".combined.cl"],
+    return subprocess.Popen(["cool", ".combined.cl"],
                             stdin=in_file,
                             stdout=subprocess.PIPE,
                             stderr=subprocess.DEVNULL)
