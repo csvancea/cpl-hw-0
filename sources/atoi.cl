@@ -105,4 +105,19 @@ numbers are handled correctly.
         fi
     };
 
+(*
+   a2b converts an ASCII string into a boolean. Every string but "true"
+is converted to false.
+*)
+    a2b(s : String) : Bool {
+        if s = "true" then true else false fi
+    };
+
+(*
+    b2a converts a boolean to a string.
+*)
+    b2a(b : Bool) : String {
+	    if b then "true" else "false" fi
+    };
+
 };
