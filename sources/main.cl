@@ -7,15 +7,39 @@ class Main inherits IO {
 
 
     help() : Object {
-        0
+        out_string("Available commands:\n  help, load, print, merge, filterBy, sortBy\n")
     };
 
     load() : Object {
-        0
+        let
+            factory : Factory <- new Factory,
+            looping : Bool <- true,
+            list : List <- new List,
+            line : String,
+            tokens : List,
+            command : String,
+            parameters : List
+        in
+            while looping loop {
+                line <- in_string();
+                tokens <- tokenizer.tokenize(line);
+                
+                -- side effect: process will abort if an empty line is typed in
+                command <- stringizer.s(tokens.hd());
+                parameters <- tokens.tl();
+
+                if command = "END" then looping <- false
+                else list <- list.cons(factory.create(command, parameters)) fi;
+
+                lists <- lists.cons(list);
+            } pool
     };
 
     print(listIndex : Int) : Object {
-        0
+        -- print head list
+        case lists.hd() of
+            l : List => out_string(l.toString().concat("\n"));
+        esac
     };
 
     merge(listIndex1 : Int, listIndex2 : Int) : Object {
