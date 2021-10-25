@@ -46,14 +46,14 @@ class A2I {
     };
 
 (*
-   a2i converts an ASCII string into an integer.  The empty string
+   a2i_str converts an ASCII string into an integer.  The empty string
 is converted to 0.  Signed and unsigned strings are handled.  The
 method aborts if the string does not represent an integer.  Very
 long strings of digits produce strange answers because of arithmetic 
 overflow.
 
 *)
-    a2i(s : String) : Int {
+    a2i_str(s : String) : Int {
         if s.length() = 0 then 0 else
         if s.substr(0,1) = "-" then ~a2i_aux(s.substr(1,s.length()-1)) else
         if s.substr(0,1) = "+" then a2i_aux(s.substr(1,s.length()-1)) else
@@ -62,7 +62,16 @@ overflow.
     };
 
 (*
-  a2i_aux converts the usigned portion of the string.  As a programming
+   a2i accepts a String that may be upcasted to Object.
+*)
+    a2i(o : Object) : Int {
+        case o of
+            s : String => a2i_str(s);
+        esac
+    };
+
+(*
+   a2i_aux converts the usigned portion of the string.  As a programming
 example, this method is written iteratively.
 *)
     a2i_aux(s : String) : Int {
