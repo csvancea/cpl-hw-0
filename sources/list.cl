@@ -20,6 +20,9 @@ class List inherits Stringizable {
     append(l : List) : List { l };
     reverse() : List { self };
 
+    filterBy(ft : Filter) : List { self };
+    sortBy(cmp : Comparator) : List { self };
+
     toStringElementSeparator() : String { "" };
     toStringHelper() : String { "" };
     toString() : String { "[ ]" };
@@ -50,6 +53,15 @@ class Cons inherits List {
     reverse() : List {
         tl.reverse().append(new List.cons(hd))
     };
+
+    filterBy(ft : Filter) : List {
+        if ft.filter(hd)
+            then new Cons.init(hd, tl.filterBy(ft))
+            else tl.filterBy(ft)
+        fi
+    };
+
+    sortBy(cmp : Comparator) : List { self };
 
     toStringElementSeparator() : String { ", " };
     toStringHelper() : String {
