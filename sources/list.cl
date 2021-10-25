@@ -11,7 +11,9 @@ class List inherits Stringizable {
     append(l : List) : List { l };
     reverse() : List { self };
 
-    toString() : String { "" };
+    toStringElementSeparator() : String { "" };
+    toStringHelper() : String { "" };
+    toString() : String { "[ ]" };
 };
 
 class Cons inherits List {
@@ -40,9 +42,11 @@ class Cons inherits List {
         tl.reverse().append(new List.cons(hd))
     };
 
-    toString() : String {
+    toStringElementSeparator() : String { ", " };
+    toStringHelper() : String {
         stringizer.toString(hd)
-            .concat(" ")
-            .concat(tl.toString())
+            .concat(tl.toStringElementSeparator())
+            .concat(tl.toStringHelper())
     };
+    toString() : String { "[ ".concat(toStringHelper()).concat(" ]") };
 };
