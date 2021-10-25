@@ -1,4 +1,4 @@
-class List {
+class List inherits Stringizable {
     isEmpty() : Bool { true };
 
     hd() : Object { { abort(); self; } };
@@ -10,9 +10,12 @@ class List {
 
     append(l : List) : List { l };
     reverse() : List { self };
+
+    toString() : String { "" };
 };
 
 class Cons inherits List {
+    stringizer : Stringizer <- new Stringizer;
     hd : Object;
     tl : List;
 
@@ -35,5 +38,11 @@ class Cons inherits List {
 
     reverse() : List {
         tl.reverse().append(new List.cons(hd))
+    };
+
+    toString() : String {
+        stringizer.toString(hd)
+            .concat(" ")
+            .concat(tl.toString())
     };
 };
