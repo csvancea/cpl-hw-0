@@ -115,11 +115,20 @@ numbers are handled correctly.
     };
 
 (*
-   a2b converts an ASCII string into a boolean. Every string but "true"
+   a2b_str converts an ASCII string into a boolean. Every string but "true"
 is converted to false.
 *)
-    a2b(s : String) : Bool {
+    a2b_str(s : String) : Bool {
         if s = "true" then true else false fi
+    };
+
+(*
+   a2b accepts a String that may be upcasted to Object.
+*)
+    a2b(o : Object) : Bool {
+        case o of
+            s : String => a2b_str(s);
+        esac
     };
 
 (*
