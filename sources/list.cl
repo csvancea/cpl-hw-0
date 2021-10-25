@@ -1,24 +1,39 @@
 class List {
+    isEmpty() : Bool { true };
 
-    (* TODO: store data *)
+    hd() : Object { { abort(); self; } };
+    tl() : List { { abort(); self; } };
 
-    add(o : Object):SELF_TYPE {
-        self (* TODO *)
+    cons(h : Object) : Cons {
+        new Cons.init(h, self)
     };
 
-    toString():String {
-        "[TODO: implement me]"
+    append(l : List) : List { l };
+    reverse() : List { self };
+};
+
+class Cons inherits List {
+    hd : Object;
+    tl : List;
+
+    init(h : Object, t : List) : Cons {
+        {
+            hd <- h;
+            tl <- t;
+            self;
+        }
     };
 
-    merge(other : List):SELF_TYPE {
-        self (* TODO *)
+    isEmpty() : Bool { false };
+
+    hd() : Object { hd };
+    tl() : List { tl };
+
+    append(l : List) : List {
+        new Cons.init(hd, tl.append(l))
     };
 
-    filterBy():SELF_TYPE {
-        self (* TODO *)
-    };
-
-    sortBy():SELF_TYPE {
-        self (* TODO *)
+    reverse() : List {
+        tl.reverse().append(new List.cons(hd))
     };
 };
