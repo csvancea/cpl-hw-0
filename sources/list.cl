@@ -8,6 +8,15 @@ class List inherits Stringizable {
         new Cons.init(h, self)
     };
 
+    (* in fact, rcons always returns a non-empty list (aka Cons), but its
+       static type is List because append' static type is List.
+       As an ugly hack, I could have casted the result to Cons, but List as
+       static type is fine too, I guess
+    *)
+    rcons(h : Object) : List { 
+        append(new Cons.init(h, new List))
+    };
+
     append(l : List) : List { l };
     reverse() : List { self };
 
