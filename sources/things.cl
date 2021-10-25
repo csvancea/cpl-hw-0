@@ -1,7 +1,7 @@
 (*******************************
  *** Classes Product-related ***
  *******************************)
-class Product {
+class Product inherits Stringizable {
     name : String;
     model : String;
     price : Int;
@@ -16,7 +16,12 @@ class Product {
     getprice():Int{ price * 119 / 100 };
 
     toString():String {
-        "TODO: implement me"
+        type_name()
+            .concat("(")
+            .concat(name)
+            .concat(",")
+            .concat(model)
+            .concat(")")
     };
 };
 
@@ -45,7 +50,7 @@ class Router inherits Product {};
 (****************************
  *** Classes Rank-related ***
  ****************************)
-class Rank {
+class Rank inherits Stringizable {
     name : String;
 
     init(n : String):String {
@@ -53,8 +58,10 @@ class Rank {
     };
 
     toString():String {
-        -- Hint: what are the default methods of Object?
-        "TODO: implement me"
+        type_name()
+            .concat("(")
+            .concat(name)
+            .concat(")")
     };
 };
 
