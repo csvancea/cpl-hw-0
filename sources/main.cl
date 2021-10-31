@@ -58,7 +58,22 @@ class Main inherits IO {
     };
 
     merge(listIndex1 : Int, listIndex2 : Int) : Object {
-        0
+        let
+            list1 : List,
+            list2 : List
+        in {
+            case lists.get(listIndex1 - 1) of
+                l : List => list1 <- l;
+            esac;
+            case lists.get(listIndex2 - 1) of
+                l : List => list2 <- l;
+            esac;
+
+            lists <- lists
+                            .remove(listIndex1 - 1) -- remove first list
+                            .remove(listIndex2 - 2) -- remove second list
+                            .rcons(list1.append(list2)); -- add the merged list to the end
+        }
     };
 
     filterBy(listIndex : Int, filter : String) : Object {
