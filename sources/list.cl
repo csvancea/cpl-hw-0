@@ -6,6 +6,7 @@ class List inherits Stringizable {
 
     get(i : Int) : Object { abort() };
     remove(i : Int) : List { { abort(); self; } };
+    add(i : Int, h : Object) : List { cons(h) };
 
     cons(h : Object) : Cons {
         new Cons.init(h, self)
@@ -60,6 +61,13 @@ class Cons inherits List {
         if i = 0
             then tl
             else new Cons.init(hd, tl.remove(i - 1))
+        fi
+    };
+
+    add(i : Int, h : Object) : List {
+        if i = 0
+            then cons(h)
+            else tl.add(i - 1, h).cons(hd)
         fi
     };
 
