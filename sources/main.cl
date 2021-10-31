@@ -101,7 +101,9 @@ class Main inherits IO {
             tokens : List,
             command : String,
             parameters : List
-        in
+        in {
+            load();
+
             while looping loop {
                 line <- in_string();
                 tokens <- tokenizer.tokenize(line);
@@ -117,6 +119,7 @@ class Main inherits IO {
                 else if command = "sortBy" then sortBy(a2i.a2i(parameters.hd()), stringizer.s(parameters.tl().hd()))
                 else help()
                 fi fi fi fi fi;
-            } pool
+            } pool;
+        }
     };
 };
