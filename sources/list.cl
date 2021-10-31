@@ -4,6 +4,8 @@ class List inherits Stringizable {
     hd() : Object { { abort(); self; } };
     tl() : List { { abort(); self; } };
 
+    get(i : Int) : Object { abort() };
+
     cons(h : Object) : Cons {
         new Cons.init(h, self)
     };
@@ -13,7 +15,7 @@ class List inherits Stringizable {
        As an ugly hack, I could have casted the result to Cons, but List as
        static type is fine too, I guess
     *)
-    rcons(h : Object) : List { 
+    rcons(h : Object) : List {
         append(new Cons.init(h, new List))
     };
 
@@ -45,6 +47,13 @@ class Cons inherits List {
 
     hd() : Object { hd };
     tl() : List { tl };
+
+    get(i : Int) : Object {
+        if i = 0
+            then hd()
+            else tl().get(i - 1)
+        fi
+    };
 
     append(l : List) : List {
         new Cons.init(hd, tl.append(l))
