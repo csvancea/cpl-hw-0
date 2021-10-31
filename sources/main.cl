@@ -1,6 +1,7 @@
 class Main inherits IO {
     stringizer : Stringizer <- new Stringizer;
     tokenizer : Tokenizer <- new Tokenizer;
+    factory : Factory <- new Factory;
     a2i : A2I <- new A2I;
 
     lists : List <- new List;
@@ -12,7 +13,6 @@ class Main inherits IO {
 
     load() : Object {
         let
-            factory : Factory <- new Factory,
             looping : Bool <- true,
             list : List <- new List,
             line : String,
@@ -77,7 +77,17 @@ class Main inherits IO {
     };
 
     filterBy(listIndex : Int, filter : String) : Object {
-        0
+        let
+            list : List
+        in {
+            case lists.get(listIndex - 1) of
+                l : List => list <- l;
+            esac;
+
+            lists <- lists
+                            .remove(listIndex - 1)
+                            .add(listIndex - 1, list.filterBy(factory.filter(filter)));
+        }
     };
 
     sortBy(listIndex : Int, comparator : String) : Object {
