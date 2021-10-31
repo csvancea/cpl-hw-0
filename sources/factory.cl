@@ -28,4 +28,12 @@ class Factory {
 
         fi fi fi fi fi fi fi fi fi fi fi fi
     };
+
+    filter (name : String) : Filter {
+        if name = "ProductFilter" then new ProductFilter
+        else if name = "RankFilter" then new RankFilter
+        else if name = "SamePriceFilter" then new SamePriceFilter
+        else new Filter
+        fi fi fi
+    };
 };
