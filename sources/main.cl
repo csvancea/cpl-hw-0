@@ -19,7 +19,7 @@ class Main inherits IO {
             tokens : List,
             command : String,
             parameters : List
-        in
+        in {
             while looping loop {
                 line <- in_string();
                 tokens <- tokenizer.tokenize(line);
@@ -30,9 +30,10 @@ class Main inherits IO {
 
                 if command = "END" then looping <- false
                 else list <- list.cons(factory.create(command, parameters)) fi;
+            } pool;
 
-                lists <- lists.cons(list);
-            } pool
+            lists <- lists.rcons(list.reverse());
+        }
     };
 
     print(listIndex : Int) : Object {
