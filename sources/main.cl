@@ -37,10 +37,24 @@ class Main inherits IO {
     };
 
     print(listIndex : Int) : Object {
-        -- print head list
-        case lists.hd() of
-            l : List => out_string(l.toString().concat("\n"));
-        esac
+        if listIndex = 0 then
+            let
+                ll : List <- lists
+            in
+                while not ll.isEmpty() loop {
+                    case ll.hd() of
+                        l : List => out_string(stringizer.s(listIndex + 1).concat(": ").concat(l.toString()).concat("\n"));
+                    esac;
+
+                    ll <- ll.tl();
+                    listIndex <- listIndex + 1;
+                }
+                pool
+        else
+            case lists.get(listIndex - 1) of
+                l : List => out_string(l.toString().concat("\n"));
+            esac
+        fi
     };
 
     merge(listIndex1 : Int, listIndex2 : Int) : Object {
