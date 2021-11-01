@@ -29,7 +29,7 @@ class List inherits Stringizable {
 
     toStringElementSeparator() : String { "" };
     toStringHelper() : String { "" };
-    toString() : String { "[ ]" };
+    toString() : String { "[  ]" };
 };
 
 class Cons inherits List {
