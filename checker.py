@@ -30,7 +30,7 @@ def correctSeparator(pline : str):
 def lineByLine(proc, tname):
     with open(f"refs/{tname}.txt", "r") as f:
         for i, line in enumerate(f, start=1):
-            pline = proc.stdout.readline().decode("UTF-8")
+            pline = proc.stdout.readline().decode("UTF-8").replace('\r', '')
 
             if line != pline and line != correctSeparator(pline):
                 print("failed\n")
