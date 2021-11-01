@@ -58,6 +58,8 @@ class Rank inherits Stringizable {
         self;
     }};
 
+    getrank() : Int {{ abort(); 0; }};
+
     toString():String {
         type_name()
             .concat("(")
@@ -66,10 +68,18 @@ class Rank inherits Stringizable {
     };
 };
 
-class Private inherits Rank {};
+class Private inherits Rank {
+    getrank() : Int { 1 };
+};
 
-class Corporal inherits Private {};
+class Corporal inherits Private {
+    getrank() : Int { 2 };
+};
 
-class Sergent inherits Corporal {};
+class Sergent inherits Corporal {
+    getrank() : Int { 3 };
+};
 
-class Officer inherits Sergent {};
+class Officer inherits Sergent {
+    getrank() : Int { 4 };
+};

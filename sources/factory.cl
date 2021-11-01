@@ -36,4 +36,13 @@ class Factory {
         else new Filter
         fi fi fi
     };
+
+    comparator (name : String) : Comparator {
+        if name = "PriceComparator" then new PriceComparator
+        else if name = "RankComparator" then new RankComparator
+        else if name = "AlphabeticComparator" then new AlphabeticComparator
+        else if name = "IntComparator" then new IntComparator
+        else new Comparator
+        fi fi fi fi
+    };
 };

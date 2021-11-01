@@ -90,8 +90,28 @@ class Main inherits IO {
         }
     };
 
-    sortBy(listIndex : Int, comparator : String) : Object {
-        0
+    sortBy(listIndex : Int, comparator : String, order : String) : Object {
+        let
+            list : List,
+            cmp : Comparator <- factory.comparator(comparator)
+        in {
+            case lists.get(listIndex - 1) of
+                l : List => list <- l;
+            esac;
+
+            if order = "ascendent" then
+                cmp
+            else if order = "descendent" then
+                cmp <- new ReverseComparator.init(cmp)
+            else {
+                abort();
+                cmp;
+            } fi fi;
+
+            lists <- lists
+                            .remove(listIndex - 1)
+                            .add(listIndex - 1, list.sortBy(cmp));
+        }
     };
 
     main() : Object {
@@ -116,7 +136,7 @@ class Main inherits IO {
                 else if command = "print" then print(if parameters.isEmpty() then 0 else a2i.a2i(parameters.hd()) fi)
                 else if command = "merge" then merge(a2i.a2i(parameters.hd()), a2i.a2i(parameters.tl().hd()))
                 else if command = "filterBy" then filterBy(a2i.a2i(parameters.hd()), stringizer.s(parameters.tl().hd()))
-                else if command = "sortBy" then sortBy(a2i.a2i(parameters.hd()), stringizer.s(parameters.tl().hd()))
+                else if command = "sortBy" then sortBy(a2i.a2i(parameters.hd()), stringizer.s(parameters.tl().hd()), stringizer.s(parameters.tl().tl().hd()))
                 else help()
                 fi fi fi fi fi;
             } pool;

@@ -26,6 +26,7 @@ class List inherits Stringizable {
 
     filterBy(ft : Filter) : List { self };
     sortBy(cmp : Comparator) : List { self };
+    sortByHelper(e : Object, cmp : Comparator) : List { cons(e) };
 
     toStringElementSeparator() : String { "" };
     toStringHelper() : String { "" };
@@ -86,7 +87,17 @@ class Cons inherits List {
         fi
     };
 
-    sortBy(cmp : Comparator) : List { self };
+    sortBy(cmp : Comparator) : List {
+        (tl.sortBy(cmp)).sortByHelper(hd, cmp)
+    };
+
+    sortByHelper(e : Object, cmp : Comparator) : List {
+        if cmp.compareTo(e, hd) < 0 then
+            (new Cons).init(e, self)
+        else
+            (new Cons).init(hd, tl.sortByHelper(e, cmp))
+        fi
+    };
 
     toStringElementSeparator() : String { ", " };
     toStringHelper() : String {
